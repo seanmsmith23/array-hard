@@ -1,74 +1,85 @@
 board_one = [['X', 'X', 'X'],['X', 'X', 'O'], ['O', 'X', 'X']]
-board_two = [['X', 'O', 'O'],['X', 'X', 'X'], ['X', 'X', 'O']]
-board_three = [['O', 'X', 'O'],['X', 'X', 'O'], ['X', 'O', 'X']]
+board_two = [['O', 'O', 'X'],['O', 'X', 'O'], ['O', 'X', 'O']]
+board_three = [['O', 'O', 'X'],['O', 'X', 'O'], ['X', 'O', 'O']]
+board_four = [['O', 'X', 'O'],['X', 'X', 'O'], ['X', 'O', 'X']]
 
 def winner(board)
-  if check_rows(board)
-    puts "WINNER!!"
-  elsif check_columns(board)
-    puts "WINNER!!"
-  elsif check_diagonal(board)
-    puts "WINNER!!"
+  rows = check_rows(board)
+  columns = check_columns(board)
+  diagonals =  check_diagonal(board)
+
+  if rows[0]
+    puts "OHH!! #{rows[1]} wins!! The classic, but effective three across!!"
+  elsif columns[0]
+    puts "OHH!! #{columns[1]} wins!! Droppin' three straight down ON YOU FACE!!"
+  elsif diagonals[0]
+    puts "OHH!! #{diagonals[1]} wins!! The diagonal samurai slasher!! You ninja you..."
   else
-    puts "UGHH... Cats game. This is why Tic-Tac-Toe sucks..."
+    puts "LAAAME... TIE. This is why Tic-Tac-Toe sucks..."
   end
 end
 
 def check_rows(board)
   x = 0
   y = 0
-  status = false
+  output = []
 
   while x < 3
     if board[x][y] == board[x][y+1] && board[x][y+1] == board[x][y+2]
-      status = true
+      output << true
+      output << board[x][y]
       break
     elsif x == 2
-      status = false
+      output << false
       break
     else
       x += 1
     end
   end
-  status
+  output
 end
 
 def check_columns(board)
   x = 0
   y = 0
-  status = false
+  output = []
 
   while y < 3
     if board[x][y] == board[x+1][y] && board[x+1][y] == board[x+2][y]
-      status = true
+      output << true
+      output << board[x][y]
       break
     elsif y == 2
-      status = false
+      output << false
       break
     else
       y += 1
     end
   end
-  status
+  output
 end
 
 def check_diagonal(board)
   y = 0
   x = 0
+  output = []
 
   if board[x][y] == board[x+1][y+1] && board[x+1][y+1] == board[x+2][y+2]
-    status = true
+    output << true
+    output << board[x][y]
   elsif board[x][y+2] == board[x+1][y+1] && board[x+1][y+1] == board[x+2][y]
-    status = true
+    output << true
+    output << board[x][y+2]
   else
-    status = false
+    output << false
   end
-  status
+  output
 end
 
 winner(board_one)
 winner(board_two)
 winner(board_three)
+winner(board_four)
 
 # these can be used to get a better picture what is happening when something is broken
 
